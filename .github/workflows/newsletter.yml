@@ -2,8 +2,8 @@ name: Generate Newsletter
 
 on:
   schedule:
-    # This schedule will run the action every day at 7 AM in German time (CET/CEST)
-    - cron: '0 7 * * *'  # This is in UTC, which is currently 1 hour behind Germany during CEST (UTC+2)
+    # Schedule to run daily at 7 AM UTC+2 (German time during CEST)
+    - cron: '0 5 * * *'  # Adjust based on daylight saving time
   push:
     branches:
       - main
@@ -23,6 +23,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+      
+      - name: Set environment variables
+        run: |
+          echo "OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}" >> $GITHUB_ENV
+          echo "REDDIT_CLIENT_ID=${{ secrets.REDDIT_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "REDDIT_CLIENT_SECRET=${{ secrets.REDDIT_CLIENT_SECRET }}" >> $GITHUB_ENV
+          echo "REDDIT_PASS=${{ secrets.REDDIT_PASS }}" >> $GITHUB_ENV
+          echo "REDDIT_USER=${{ secrets.REDDIT_USER }}" >> $GITHUB_ENV
+          echo "REDDIT_USER_AGENT=${{ secrets.REDDIT_USER_AGENT }}" >> $GITHUB_ENV
+          echo "ZOHO_EMAIL=${{ secrets.ZOHO_EMAIL }}" >> $GITHUB_ENV
+          echo "ZOHO_PASS=${{ secrets.ZOHO_PASS }}" >> $GITHUB_ENV
       
       - name: Generate newsletter
         run: python main.py
