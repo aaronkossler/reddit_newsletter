@@ -27,15 +27,15 @@ jobs:
       - name: Generate newsletter
         shell: bash  # You can choose pwsh or cmd as needed
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
-          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
-          REDDIT_PASS: ${{ secrets.REDDIT_PASS }}
-          REDDIT_USER: ${{ secrets.REDDIT_USER }}
-          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
-          ZOHO_EMAIL: ${{ secrets.ZOHO_EMAIL }}
-          ZOHO_PASS: ${{ secrets.ZOHO_PASS }}
-          EMAIL: ${{ secrets.EMAIL }}
+          OPENROUTER_API_KEY: ${{ secrets.newsletter.OPENROUTER_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.newsletter.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.newsletter.REDDIT_CLIENT_SECRET }}
+          REDDIT_PASS: ${{ secrets.newsletter.REDDIT_PASS }}
+          REDDIT_USER: ${{ secrets.newsletter.REDDIT_USER }}
+          REDDIT_USER_AGENT: ${{ secrets.newsletter.REDDIT_USER_AGENT }}
+          ZOHO_EMAIL: ${{ secrets.newsletter.ZOHO_EMAIL }}
+          ZOHO_PASS: ${{ secrets.newsletter.ZOHO_PASS }}
+          EMAIL: ${{ secrets.newsletter.EMAIL }}
         run: |
           python main.py
       
