@@ -1,6 +1,10 @@
 from openai import OpenAI
 from reddit import get_subreddit_posts
 from os import getenv
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Free limit: If you are using a free model variant (with an ID ending in :free), then you will be limited to 20 requests per minute and 200 requests per day.
 
@@ -27,5 +31,6 @@ def generate_newsletter(subreddit):
     "Given the following reddit posts write a newsletter, that summarizes " \
     "the content of the posts. \n\n" \
     f"{reddit_content} \n\n" \
-    "Format the output as if it was the body of an email. Omit the subject line."
+    "Format the output as if it was the body of an email. Omit the subject line.\n" \
+    "Omit any additional output and explanations."
     return generate(prompt)

@@ -2,10 +2,14 @@ import praw
 import json
 from os import getenv
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 reddit = praw.Reddit(client_id=getenv("REDDIT_CLIENT_ID"),
                      client_secret=getenv("REDDIT_CLIENT_SECRET"),
-                     user_agent=getenv("REDDIT_USER_AGENT"),
+                     user_agent=getenv("REDDIT_USER_AGENT").strip(),
                      username=getenv("REDDIT_USER"),
                      password=getenv("REDDIT_PASS"))
 
