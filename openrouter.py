@@ -32,5 +32,5 @@ def generate_newsletter(subreddit):
     "the content of the posts. \n\n" \
     f"{reddit_content} \n\n" \
     "Format the output as if it was the body of an email. Omit the subject line.\n" \
-    "Omit any additional output and explanations."
+    "Omit any additional output. Include urls to the respective posts."
     return generate(prompt)
