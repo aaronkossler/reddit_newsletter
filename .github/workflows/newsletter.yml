@@ -1,0 +1,36 @@
+name: Generate Newsletter
+
+on:
+  schedule:
+    # This schedule will run the action every day at 7 AM in German time (CET/CEST)
+    - cron: '0 7 * * *'  # This is in UTC, which is currently 1 hour behind Germany during CEST (UTC+2)
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Generate newsletter
+        run: python main.py
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "action@github.com"
+          git add newsletter.md  # Replace with your output file if different
+          git commit -m "Update newsletter" || echo "No changes to commit"
+          git push
