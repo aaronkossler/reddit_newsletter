@@ -25,7 +25,8 @@ jobs:
           pip install -r requirements.txt
       
       - name: Output test secret
-        run: echo "TEST_PASS is: ${{ secrets.TEST_PASS }}"  # Accessing the secret without environment prefix
+        run: |
+          echo "TEST_PASS is: ${{ secrets.TEST_PASS }}"  # Accessing the secret without environment prefix
       
       - name: Generate newsletter
         shell: bash
