@@ -10,6 +10,7 @@ on:
 jobs:
   generate-newsletter:
     runs-on: ubuntu-latest
+    environment: newsletter  # Specify the environment here
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,21 +25,20 @@ jobs:
           pip install -r requirements.txt
       
       - name: Output test secret
-        run: |
-          echo "TEST_PASS is: ${{ secrets.newsletter.TEST_PASS }}"
+        run: echo "TEST_PASS is: ${{ secrets.TEST_PASS }}"  # Accessing the secret without environment prefix
       
       - name: Generate newsletter
-        shell: bash  # You can choose pwsh or cmd as needed
+        shell: bash
         env:
-          OPENROUTER_API_KEY: ${{ secrets.newsletter.OPENROUTER_API_KEY }}
-          REDDIT_CLIENT_ID: ${{ secrets.newsletter.REDDIT_CLIENT_ID }}
-          REDDIT_CLIENT_SECRET: ${{ secrets.newsletter.REDDIT_CLIENT_SECRET }}
-          REDDIT_PASS: ${{ secrets.newsletter.REDDIT_PASS }}
-          REDDIT_USER: ${{ secrets.newsletter.REDDIT_USER }}
-          REDDIT_USER_AGENT: ${{ secrets.newsletter.REDDIT_USER_AGENT }}
-          ZOHO_EMAIL: ${{ secrets.newsletter.ZOHO_EMAIL }}
-          ZOHO_PASS: ${{ secrets.newsletter.ZOHO_PASS }}
-          EMAIL: ${{ secrets.newsletter.EMAIL }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_PASS: ${{ secrets.REDDIT_PASS }}
+          REDDIT_USER: ${{ secrets.REDDIT_USER }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
+          ZOHO_EMAIL: ${{ secrets.ZOHO_EMAIL }}
+          ZOHO_PASS: ${{ secrets.ZOHO_PASS }}
+          EMAIL: ${{ secrets.EMAIL }}
         run: |
           python main.py
       
