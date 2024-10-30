@@ -1,0 +1,41 @@
+import praw
+import json
+from os import getenv
+import os
+
+reddit = praw.Reddit(client_id=getenv("REDDIT_CLIENT_ID"),
+                     client_secret=getenv("REDDIT_CLIENT_SECRET"),
+                     user_agent=getenv("REDDIT_USER_AGENT"),
+                     username=getenv("REDDIT_USER"),
+                     password=getenv("REDDIT_PASS"))
+
+
+def get_subreddit_posts(subreddit_name):
+    subreddit = reddit.subreddit(subreddit_name)
+    result = {}
+    ids = json.loads("ids.json") if os.path.exists("ids.json") else []
+    submissions = [
+        submission for submission in subreddit.top(limit=20, time_filter="day")
+        if id not in ids
+    ]
+    ids = []
+    for submission in submissions:
+        ids.append(submission.id)
+        result[submission.id] = {
+            "title":
+            submission.title,
+            "url":
+            submission.url,
+            "score":
+            submission.score,
+            "content":
+            submission.selftext
+            if submission.is_self else submission.url  # Grabs selftext or URL
+        }
+    dump_ids(ids)
+    return result
+
+
+def dump_ids(ids):
+    with open('ids.json', 'w') as file:
+        json.dump(ids, file)
