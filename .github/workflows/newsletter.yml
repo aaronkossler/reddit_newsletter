@@ -2,8 +2,7 @@ name: Generate Newsletter
 
 on:
   schedule:
-    # Schedule to run daily at 7 AM UTC+2 (German time during CEST)
-    - cron: '0 5 * * *'  # Adjust based on daylight saving time
+    - cron: '0 5 * * *'  # Schedule to run daily at 7 AM UTC+2 (German time during CEST)
   push:
     branches:
       - main
@@ -23,6 +22,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+      
+      - name: Output test secret
+        run: |
+          echo "TEST_PASS is: ${{ secrets.newsletter.TEST_PASS }}"
       
       - name: Generate newsletter
         shell: bash  # You can choose pwsh or cmd as needed
