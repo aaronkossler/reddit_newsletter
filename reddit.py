@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-reddit = praw.Reddit(client_id=getenv("REDDIT_CLIENT_ID").strip(),
-                     client_secret=getenv("REDDIT_CLIENT_SECRET").strip(),
-                     user_agent=getenv("REDDIT_USER_AGENT").strip(),
-                     username=getenv("REDDIT_USER").strip(),
-                     password=getenv("REDDIT_PASS").strip())
+reddit = praw.Reddit(client_id=getenv("REDDIT_CLIENT_ID"),
+                     client_secret=getenv("REDDIT_CLIENT_SECRET"),
+                     user_agent=getenv("REDDIT_USER_AGENT"),
+                     username=getenv("REDDIT_USER"),
+                     password=getenv("REDDIT_PASS"))
 
 
 def get_subreddit_posts(subreddit_name):

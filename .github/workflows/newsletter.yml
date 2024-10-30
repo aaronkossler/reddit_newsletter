@@ -24,19 +24,20 @@ jobs:
         run: |
           pip install -r requirements.txt
       
-      - name: Set environment variables
-        run: |
-          echo "OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}" >> $GITHUB_ENV
-          echo "REDDIT_CLIENT_ID=${{ secrets.REDDIT_CLIENT_ID }}" >> $GITHUB_ENV
-          echo "REDDIT_CLIENT_SECRET=${{ secrets.REDDIT_CLIENT_SECRET }}" >> $GITHUB_ENV
-          echo "REDDIT_PASS=${{ secrets.REDDIT_PASS }}" >> $GITHUB_ENV
-          echo "REDDIT_USER=${{ secrets.REDDIT_USER }}" >> $GITHUB_ENV
-          echo "REDDIT_USER_AGENT=${{ secrets.REDDIT_USER_AGENT }}" >> $GITHUB_ENV
-          echo "ZOHO_EMAIL=${{ secrets.ZOHO_EMAIL }}" >> $GITHUB_ENV
-          echo "ZOHO_PASS=${{ secrets.ZOHO_PASS }}" >> $GITHUB_ENV
-      
       - name: Generate newsletter
-        run: python main.py
+        shell: bash  # You can choose pwsh or cmd as needed
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_PASS: ${{ secrets.REDDIT_PASS }}
+          REDDIT_USER: ${{ secrets.REDDIT_USER }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
+          ZOHO_EMAIL: ${{ secrets.ZOHO_EMAIL }}
+          ZOHO_PASS: ${{ secrets.ZOHO_PASS }}
+          EMAIL: ${{ secrets.EMAIL }}
+        run: |
+          python main.py
       
       - name: Commit and push changes
         run: |
