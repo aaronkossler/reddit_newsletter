@@ -11,7 +11,7 @@ load_dotenv()
 # gets API Key from environment variable OPENAI_API_KEY
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key=getenv("OPENROUTER_API_KEY"),
+    api_key=getenv("OPENROUTER_API_KEY")
 )
 
 
@@ -27,7 +27,7 @@ def generate(system, prompt, model="meta-llama/llama-3.3-70b-instruct:free"):
             "role": "user",
             "content": prompt
         }])
-    print(completion)
+    # print(completion)
     return completion.choices[0].message.content
 
 
