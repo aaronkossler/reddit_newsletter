@@ -27,7 +27,7 @@ def generate(system, prompt, model="meta-llama/llama-3.3-70b-instruct:free"):
             "role": "user",
             "content": prompt
         }])
-    # print(completion)
+    print(completion)
     return completion.choices[0].message.content
 
 
