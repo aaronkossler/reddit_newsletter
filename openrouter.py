@@ -15,22 +15,28 @@ client = OpenAI(
 )
 
 
-def generate(prompt):
+def generate(system, prompt, model="meta-llama/llama-3.3-70b-instruct:free"):
     completion = client.chat.completions.create(
-        model="nousresearch/hermes-3-llama-3.1-405b:free",
-        messages=[{
+        model=model,
+        messages=[
+            {
+            "role": "system",
+            "content": system
+            },
+            {
             "role": "user",
             "content": prompt
         }])
+    print(completion)
     return completion.choices[0].message.content
 
 
 def generate_newsletter(subreddit):
     reddit_content = get_subreddit_posts(subreddit)
-    prompt = "You are a professional Newsletter writer. \n" \
-    "Given the following reddit posts write a newsletter, that summarizes " \
-    "the content of the posts. \n\n" \
-    f"{reddit_content} \n\n" \
+    system = "You are a professional Newsletter writer for the company OpenLetter."
+    prompt = "Given the following reddit posts write a newsletter, that summarizes " \
+    "the content of the posts.\n\n" \
+    f"{reddit_content}\n\n" \
     "Format the output as if it was the body of an email. Omit the subject line.\n" \
     "Omit any additional output. Include urls to the respective posts."
-    return generate(prompt)
+    return generate(system, prompt)
